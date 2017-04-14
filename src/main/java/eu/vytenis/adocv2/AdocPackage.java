@@ -10,4 +10,20 @@ public class AdocPackage {
 	public String getMainFileName() {
 		return fileName;
 	}
+
+	public String getMetaDirectoryName() {
+		return "META";
+	}
+
+	public String getManifestFileName() {
+		return "META-INF/manifest.xml";
+	}
+
+	public String getRelationsFileName() {
+		return "META-INF2/relations.xml";
+	}
+
+	public String getMimeTypeFileName() {
+		return "mimetype";
+	}
 }
