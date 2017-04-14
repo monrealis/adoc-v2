@@ -15,4 +15,19 @@ public class AdocPackageTest {
 		assertEquals("META-INF2/relations.xml", adoc.getRelationsFileName());
 		assertEquals("mimetype", adoc.getMimeTypeFileName());
 	}
+
+	@Test
+	public void hasAsicContentType() {
+		assertEquals("application/vnd.etsi.asic-e+zip", adoc.getContentType());
+	}
+
+	@Test
+	public void getsFileAsText() {
+		assertEquals("application/vnd.etsi.asic-e+zip", adoc.getFileAsText("mimetype"));
+	}
+
+	@Test(expected = FileNotFoundInPackageException.class)
+	public void throwsExceptionIfFileNotFound() {
+		adoc.getFileAsText("notExisting");
+	}
 }

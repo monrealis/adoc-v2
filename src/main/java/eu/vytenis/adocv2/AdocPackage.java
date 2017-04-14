@@ -26,4 +26,14 @@ public class AdocPackage {
 	public String getMimeTypeFileName() {
 		return "mimetype";
 	}
+
+	public String getContentType() {
+		return "application/vnd.etsi.asic-e+zip";
+	}
+
+	public String getFileAsText(String path) {
+		if (!path.equals(getMimeTypeFileName()))
+			throw new FileNotFoundInPackageException();
+		return "application/vnd.etsi.asic-e+zip";
+	}
 }
