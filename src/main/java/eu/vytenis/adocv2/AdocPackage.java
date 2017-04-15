@@ -1,7 +1,12 @@
 package eu.vytenis.adocv2;
 
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.bind.JAXB;
+
+import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 
 public class AdocPackage {
 	private final String fileName;
@@ -10,6 +15,14 @@ public class AdocPackage {
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
 		files.put(getMimeTypeFileName(), getContentType());
+		files.put(getRelationsFileName(), createRelationshipsXml());
+	}
+
+	private String createRelationshipsXml() {
+		StringWriter w = new StringWriter();
+		JAXB.marshal(new RelationshipsType(), w);
+		String s = w.toString();
+		return s;
 	}
 
 	public String getMainFileName() {
@@ -39,7 +52,7 @@ public class AdocPackage {
 	public String getFileAsText(String path) {
 		String content = files.get(path);
 		if (content == null)
-			throw new FileNotFoundInPackageException();
+			throw new FileNotFoundInPackageException(path);
 		return content;
 	}
 }
