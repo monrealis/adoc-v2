@@ -2,7 +2,14 @@ package eu.vytenis.adocv2;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.StringReader;
+
+import javax.xml.bind.JAXB;
+
+import org.junit.Ignore;
 import org.junit.Test;
+
+import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 
 public class AdocPackageTest {
 	private AdocPackage adoc = new AdocPackage("file.pdf");
@@ -29,5 +36,12 @@ public class AdocPackageTest {
 	@Test(expected = FileNotFoundInPackageException.class)
 	public void throwsExceptionIfFileNotFound() {
 		adoc.getFileAsText("notExisting");
+	}
+
+	@Ignore
+	@Test
+	public void relationsIsAValidXml() {
+		String xml = adoc.getFileAsText("META-INF2/relations.xml");
+		JAXB.unmarshal(new StringReader(xml), RelationshipsType.class);
 	}
 }

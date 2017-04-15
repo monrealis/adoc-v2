@@ -1,10 +1,15 @@
 package eu.vytenis.adocv2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AdocPackage {
 	private final String fileName;
+	private final Map<String, String> files = new HashMap<String, String>();
 
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
+		files.put(getMimeTypeFileName(), getContentType());
 	}
 
 	public String getMainFileName() {
@@ -32,8 +37,9 @@ public class AdocPackage {
 	}
 
 	public String getFileAsText(String path) {
-		if (!path.equals(getMimeTypeFileName()))
+		String content = files.get(path);
+		if (content == null)
 			throw new FileNotFoundInPackageException();
-		return "application/vnd.etsi.asic-e+zip";
+		return content;
 	}
 }
