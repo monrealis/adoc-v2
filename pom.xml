@@ -6,6 +6,11 @@
     <version>0.1-SNAPSHOT</version>
     <dependencies>
         <dependency>
+            <groupId>eu.vytenis</groupId>
+            <artifactId>adoc-schemas</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
