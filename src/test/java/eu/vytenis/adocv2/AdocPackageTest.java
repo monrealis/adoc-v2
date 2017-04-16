@@ -9,6 +9,7 @@ import javax.xml.bind.JAXB;
 import org.junit.Test;
 
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
+import lt.archyvai.adoc._2008.relationships.SourcePartType;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackageTest {
@@ -39,11 +40,18 @@ public class AdocPackageTest {
 	}
 
 	@Test
-	public void relationsIsAnXmlFromRequiredNamespace() {
-		String xml = adoc.getFileAsText("META-INF2/relations.xml");
-		JAXB.unmarshal(new StringReader(xml), RelationshipsType.class);
+	public void relationsIsAValidXml() {
+		RelationshipsType relationships = getRelationships();
+		SourcePartType sourcePart = relationships.getSourcePart().get(0);
+		assertEquals("/", sourcePart.getFullPath());
 	}
-	
+
+	private RelationshipsType getRelationships() {
+		String xml = adoc.getFileAsText("META-INF2/relations.xml");
+		RelationshipsType relationships = JAXB.unmarshal(new StringReader(xml), RelationshipsType.class);
+		return relationships;
+	}
+
 	@Test
 	public void manifestIsAnXmlFromRequiredNamespace() {
 		String xml = adoc.getFileAsText("META-INF/manifest.xml");

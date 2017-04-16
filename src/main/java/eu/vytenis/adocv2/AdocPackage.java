@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
+import lt.archyvai.adoc._2008.relationships.SourcePartType;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackage {
@@ -19,7 +20,11 @@ public class AdocPackage {
 	}
 
 	private String createRelationshipsXml() {
-		return marshaller.marshallToString(new RelationshipsType());
+		RelationshipsType r = new RelationshipsType();
+		SourcePartType root = new SourcePartType();
+		root.setFullPath("/");
+		r.getSourcePart().add(root);
+		return marshaller.marshallToString(r);
 	}
 
 	private String createManifestXml() {
