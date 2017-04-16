@@ -8,6 +8,7 @@ import javax.xml.bind.JAXB;
 
 import org.junit.Test;
 
+import lt.archyvai.adoc._2008.relationships.RelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
@@ -43,7 +44,10 @@ public class AdocPackageTest {
 	public void relationsIsAValidXml() {
 		RelationshipsType relationships = getRelationships();
 		SourcePartType sourcePart = relationships.getSourcePart().get(0);
+		RelationshipType relationship = sourcePart.getRelationship().get(0);
 		assertEquals("/", sourcePart.getFullPath());
+		assertEquals("file.pdf", relationship.getFullPath());
+		assertEquals(KnownRelationshipType.Main.getUri(), relationship.getType());
 	}
 
 	private RelationshipsType getRelationships() {

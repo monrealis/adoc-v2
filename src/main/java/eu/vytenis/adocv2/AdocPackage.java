@@ -3,6 +3,7 @@ package eu.vytenis.adocv2;
 import java.util.HashMap;
 import java.util.Map;
 
+import lt.archyvai.adoc._2008.relationships.RelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
@@ -15,15 +16,19 @@ public class AdocPackage {
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
 		files.put(getMimeTypeFileName(), getContentType());
-		files.put(getRelationsFileName(), createRelationshipsXml());
+		files.put(getRelationsFileName(), createRelationshipsXml(fileName));
 		files.put(getManifestFileName(), createManifestXml());
 	}
 
-	private String createRelationshipsXml() {
+	private String createRelationshipsXml(String mainFileName) {
 		RelationshipsType r = new RelationshipsType();
-		SourcePartType root = new SourcePartType();
-		root.setFullPath("/");
-		r.getSourcePart().add(root);
+		SourcePartType sourcePart = new SourcePartType();
+		RelationshipType relationship = new RelationshipType();
+		relationship.setFullPath(mainFileName);
+		relationship.setType(KnownRelationshipType.Main.getUri());
+		sourcePart.setFullPath("/");
+		sourcePart.getRelationship().add(relationship);
+		r.getSourcePart().add(sourcePart);
 		return marshaller.marshallToString(r);
 	}
 
