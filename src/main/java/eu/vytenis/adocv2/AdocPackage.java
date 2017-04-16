@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.xml.bind.JAXB;
 
+import org.w3._2000._09.xmldsig_.ManifestType;
+
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 
 public class AdocPackage {
@@ -16,11 +18,19 @@ public class AdocPackage {
 		this.fileName = fileName;
 		files.put(getMimeTypeFileName(), getContentType());
 		files.put(getRelationsFileName(), createRelationshipsXml());
+		files.put(getManifestFileName(), createManifestXml());
 	}
 
 	private String createRelationshipsXml() {
 		StringWriter w = new StringWriter();
 		JAXB.marshal(new RelationshipsType(), w);
+		String s = w.toString();
+		return s;
+	}
+
+	private String createManifestXml() {
+		StringWriter w = new StringWriter();
+		JAXB.marshal(new ManifestType(), w);
 		String s = w.toString();
 		return s;
 	}
