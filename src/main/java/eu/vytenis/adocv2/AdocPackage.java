@@ -1,18 +1,15 @@
 package eu.vytenis.adocv2;
 
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXB;
-
-import org.w3._2000._09.xmldsig_.ManifestType;
-
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
+import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackage {
 	private final String fileName;
 	private final Map<String, String> files = new HashMap<String, String>();
+	private final AdocMarshaller marshaller = new AdocMarshaller();
 
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
@@ -22,17 +19,11 @@ public class AdocPackage {
 	}
 
 	private String createRelationshipsXml() {
-		StringWriter w = new StringWriter();
-		JAXB.marshal(new RelationshipsType(), w);
-		String s = w.toString();
-		return s;
+		return marshaller.marshallToString(new RelationshipsType());
 	}
 
 	private String createManifestXml() {
-		StringWriter w = new StringWriter();
-		JAXB.marshal(new ManifestType(), w);
-		String s = w.toString();
-		return s;
+		return marshaller.marshallToString(new Manifest());
 	}
 
 	public String getMainFileName() {
