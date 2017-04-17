@@ -14,7 +14,7 @@ import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;
 
 public class AdocPackageRelationsTest {
-	private AdocPackage adoc = new AdocPackage("file.pdf");
+	private AdocPackage adoc = new AdocPackage("file.pdf", new byte[] {});
 
 	@Test
 	public void relationsIsAValidXml() {

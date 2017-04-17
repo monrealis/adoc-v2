@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class AdocPackageTest {
-	private AdocPackage adoc = new AdocPackage("file.pdf");
+	private AdocPackage adoc = new AdocPackage("file.pdf", new byte[] {});
 
 	@Test
-	public void minimalFileStructure() {
+	public void fileNames() {
 		assertEquals("file.pdf", adoc.getMainFileName());
 		assertEquals("META", adoc.getMetaDirectoryName());
 		assertEquals("META-INF/manifest.xml", adoc.getManifestFileName());
@@ -24,6 +24,11 @@ public class AdocPackageTest {
 	@Test
 	public void getsFileAsText() {
 		assertEquals("application/vnd.etsi.asic-e+zip", adoc.getFileAsText("mimetype"));
+	}
+
+	@Test
+	public void getsMainContentAsText() {
+		assertEquals("", adoc.getFileAsText("file.pdf"));
 	}
 
 	@Test(expected = FileNotFoundInPackageException.class)

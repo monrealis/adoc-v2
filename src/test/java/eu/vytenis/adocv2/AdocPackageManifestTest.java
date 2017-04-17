@@ -12,7 +12,7 @@ import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackageManifestTest {
-	private AdocPackage adoc = new AdocPackage("file.pdf");
+	private AdocPackage adoc = new AdocPackage("file.pdf", new byte[] {});
 
 	@Test
 	public void manifestIsAValidXml() {
