@@ -6,6 +6,7 @@ import java.util.Map;
 import lt.archyvai.adoc._2008.relationships.RelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;
+import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackage {
@@ -33,7 +34,12 @@ public class AdocPackage {
 	}
 
 	private String createManifestXml() {
-		return marshaller.marshallToString(new Manifest());
+		Manifest manifest = new Manifest();
+		FileEntry fe = new FileEntry();
+		fe.setFullPath("/");
+		fe.setMediaType("application/vnd.etsi.asic-e+zip");
+		manifest.getFileEntry().add(fe);
+		return marshaller.marshallToString(manifest);
 	}
 
 	public String getMainFileName() {
