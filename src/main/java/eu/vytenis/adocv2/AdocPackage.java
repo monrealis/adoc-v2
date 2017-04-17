@@ -11,14 +11,14 @@ import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackage {
 	private final String fileName;
-	private final Map<String, String> files = new HashMap<String, String>();
+	private final Map<String, AdocContent> files = new HashMap<String, AdocContent>();
 	private final AdocMarshaller marshaller = new AdocMarshaller();
 
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
-		files.put(getMimeTypeFileName(), getContentType());
-		files.put(getRelationsFileName(), createRelationshipsXml(fileName));
-		files.put(getManifestFileName(), createManifestXml());
+		files.put(getMimeTypeFileName(), new AdocStringContent(getContentType()));
+		files.put(getRelationsFileName(), new AdocStringContent(createRelationshipsXml(fileName)));
+		files.put(getManifestFileName(), new AdocStringContent(createManifestXml()));
 	}
 
 	private String createRelationshipsXml(String mainFileName) {
@@ -67,9 +67,9 @@ public class AdocPackage {
 	}
 
 	public String getFileAsText(String path) {
-		String content = files.get(path);
+		AdocContent content = files.get(path);
 		if (content == null)
 			throw new FileNotFoundInPackageException(path);
-		return content;
+		return content.getAsString();
 	}
 }
