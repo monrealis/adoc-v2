@@ -1,4 +1,4 @@
-package eu.vytenis.adocv2;
+package eu.vytenis.adocv2.relations;
 
 public enum KnownRelationshipType {
 	Main("http://www.archyvai.lt/adoc/2008/relationships/content/main"), //

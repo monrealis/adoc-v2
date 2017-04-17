@@ -1,4 +1,4 @@
-package eu.vytenis.adocv2;
+package eu.vytenis.adocv2.content;
 
 public class AdocStringContent implements AdocContent {
 	private final String content;

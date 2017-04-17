@@ -1,7 +1,7 @@
 package eu.vytenis.adocv2.manifest;
 
-import eu.vytenis.adocv2.AdocContent;
 import eu.vytenis.adocv2.AdocMarshaller;
+import eu.vytenis.adocv2.content.AdocContent;
 import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 

@@ -8,6 +8,7 @@ import javax.xml.bind.JAXB;
 
 import org.junit.Test;
 
+import eu.vytenis.adocv2.relations.KnownRelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;

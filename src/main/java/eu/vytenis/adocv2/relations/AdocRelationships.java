@@ -1,8 +1,7 @@
 package eu.vytenis.adocv2.relations;
 
-import eu.vytenis.adocv2.AdocContent;
 import eu.vytenis.adocv2.AdocMarshaller;
-import eu.vytenis.adocv2.KnownRelationshipType;
+import eu.vytenis.adocv2.content.AdocContent;
 import lt.archyvai.adoc._2008.relationships.RelationshipType;
 import lt.archyvai.adoc._2008.relationships.RelationshipsType;
 import lt.archyvai.adoc._2008.relationships.SourcePartType;

@@ -3,8 +3,11 @@ package eu.vytenis.adocv2;
 import java.util.HashMap;
 import java.util.Map;
 
+import eu.vytenis.adocv2.content.AdocContent;
+import eu.vytenis.adocv2.content.AdocStringContent;
 import eu.vytenis.adocv2.manifest.AdocManifest;
 import eu.vytenis.adocv2.relations.AdocRelationships;
+import eu.vytenis.adocv2.relations.KnownRelationshipType;
 
 public class AdocPackage {
 	private final String fileName;
