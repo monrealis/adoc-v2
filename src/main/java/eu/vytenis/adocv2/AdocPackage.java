@@ -3,43 +3,22 @@ package eu.vytenis.adocv2;
 import java.util.HashMap;
 import java.util.Map;
 
-import lt.archyvai.adoc._2008.relationships.RelationshipType;
-import lt.archyvai.adoc._2008.relationships.RelationshipsType;
-import lt.archyvai.adoc._2008.relationships.SourcePartType;
-import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
-import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
+import eu.vytenis.adocv2.manifest.AdocManifest;
+import eu.vytenis.adocv2.relations.AdocRelationships;
 
 public class AdocPackage {
 	private final String fileName;
 	private final Map<String, AdocContent> files = new HashMap<String, AdocContent>();
-	private final AdocMarshaller marshaller = new AdocMarshaller();
+	private final AdocManifest manifest = new AdocManifest();
+	private final AdocRelationships relationships = new AdocRelationships();
 
 	public AdocPackage(String fileName) {
 		this.fileName = fileName;
 		files.put(getMimeTypeFileName(), new AdocStringContent(getContentType()));
-		files.put(getRelationsFileName(), new AdocStringContent(createRelationshipsXml(fileName)));
-		files.put(getManifestFileName(), new AdocStringContent(createManifestXml()));
-	}
-
-	private String createRelationshipsXml(String mainFileName) {
-		RelationshipsType r = new RelationshipsType();
-		SourcePartType sourcePart = new SourcePartType();
-		RelationshipType relationship = new RelationshipType();
-		relationship.setFullPath(mainFileName);
-		relationship.setType(KnownRelationshipType.Main.getUri());
-		sourcePart.setFullPath("/");
-		sourcePart.getRelationship().add(relationship);
-		r.getSourcePart().add(sourcePart);
-		return marshaller.marshallToString(r);
-	}
-
-	private String createManifestXml() {
-		Manifest manifest = new Manifest();
-		FileEntry fe = new FileEntry();
-		fe.setFullPath("/");
-		fe.setMediaType("application/vnd.etsi.asic-e+zip");
-		manifest.getFileEntry().add(fe);
-		return marshaller.marshallToString(manifest);
+		files.put(getRelationsFileName(), relationships);
+		files.put(getManifestFileName(), manifest);
+		manifest.add("/", "application/vnd.etsi.asic-e+zip");
+		relationships.add(fileName, KnownRelationshipType.Main);
 	}
 
 	public String getMainFileName() {
