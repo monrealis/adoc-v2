@@ -20,9 +20,16 @@ public class AdocPackageManifestTest {
 	private AdocPackage adoc = new AdocPackage("file.pdf", new byte[] {});
 
 	@Test
-	public void manifestIsAValidXml() {
+	public void containsRootEntry() {
 		String manifest = getManifestAsString();
 		assertThat(manifest, containsString("/ application/vnd.etsi.asic-e+zip"));
+	}
+
+	@Test
+	public void containsDirectories() {
+		String manifest = getManifestAsString();
+		assertThat(manifest, containsString("META-INF/ "));
+		assertThat(manifest, containsString("META-INF2/ "));
 	}
 
 	private String getManifestAsString() {

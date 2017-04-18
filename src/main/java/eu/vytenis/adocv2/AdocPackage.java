@@ -13,7 +13,7 @@ import eu.vytenis.adocv2.relations.KnownRelationshipType;
 public class AdocPackage {
 	private final String mainFileName;
 	private final Map<String, AdocContent> files = new HashMap<String, AdocContent>();
-	private final AdocManifest manifest = new AdocManifest();
+	private final AdocManifest manifest = new AdocManifest(files.keySet());
 	private final AdocRelationships relationships = new AdocRelationships();
 
 	public AdocPackage(String mainFileName, byte[] mainFileContent) {
