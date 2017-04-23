@@ -52,6 +52,7 @@ public class AdocManifest implements AdocContent {
 			if (fileName.contains("/"))
 				directories.add(fileName.substring(0, fileName.lastIndexOf("/")));
 		// TODO 2017-04-19 deeper paths
+		// TODO 2017-04-23 sort paths
 		return directories;
 	}
 
