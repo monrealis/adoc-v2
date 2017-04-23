@@ -6,13 +6,11 @@ import static org.junit.Assert.assertThat;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class AdocManifestTest {
 	private Set<String> fileNames = new TreeSet<String>();
 
-	@Ignore
 	@Test
 	public void containsRootEntry() {
 		AdocManifest adocManifest = new AdocManifest(fileNames);

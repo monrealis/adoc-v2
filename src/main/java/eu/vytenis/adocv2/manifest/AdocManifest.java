@@ -20,10 +20,7 @@ public class AdocManifest implements AdocContent {
 
 	public AdocManifest(Set<String> fileNames) {
 		this.fileNames = unmodifiableSet(fileNames);
-	}
-
-	public void add(String path, String contentType) {
-		fileEntries.add(createEntry("/", "application/vnd.etsi.asic-e+zip"));
+		add("/", "application/vnd.etsi.asic-e+zip");
 	}
 
 	@Override
@@ -54,6 +51,10 @@ public class AdocManifest implements AdocContent {
 		// TODO 2017-04-19 deeper paths
 		// TODO 2017-04-23 sort paths
 		return directories;
+	}
+
+	private void add(String path, String contentType) {
+		fileEntries.add(createEntry("/", "application/vnd.etsi.asic-e+zip"));
 	}
 
 	private FileEntry createEntry(String path, String contentType) {

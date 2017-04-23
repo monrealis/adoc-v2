@@ -22,7 +22,6 @@ public class AdocPackage {
 		files.put(getMimeTypeFileName(), new AdocStringContent(getContentType()));
 		files.put(getRelationsFileName(), relationships);
 		files.put(getManifestFileName(), manifest);
-		manifest.add("/", "application/vnd.etsi.asic-e+zip");
 		relationships.add(mainFileName, KnownRelationshipType.Main);
 	}
 
