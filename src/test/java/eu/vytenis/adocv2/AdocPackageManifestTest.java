@@ -10,9 +10,7 @@ import javax.xml.bind.JAXB;
 
 import org.junit.Test;
 
-import com.google.common.base.Joiner;
-
-import eu.vytenis.adocv2.mapping.Mapper;
+import eu.vytenis.adocv2.manifest.Manifests;
 import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
 import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
@@ -33,20 +31,13 @@ public class AdocPackageManifestTest {
 	}
 
 	private String getManifestAsString() {
-		List<String> lines = new ToString().fromList(getManifest().getFileEntry()).map();
-		return Joiner.on("\n").join(lines);
+		List<FileEntry> entries = getManifest().getFileEntry();
+		return Manifests.getManifestAsString(entries);
 	}
 
 	private Manifest getManifest() {
 		String xml = adoc.getFileAsText("META-INF/manifest.xml");
 		Manifest manifest = JAXB.unmarshal(new StringReader(xml), Manifest.class);
 		return manifest;
-	}
-
-	private class ToString extends Mapper<FileEntry, String> {
-		@Override
-		public String map() {
-			return String.format("%s %s", from.getFullPath(), from.getMediaType());
-		}
 	}
 }
