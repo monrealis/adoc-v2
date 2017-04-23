@@ -13,9 +13,23 @@ public class AdocManifestTest {
 
 	@Test
 	public void containsRootEntry() {
+		assertThat(getString(), containsString("/ application/vnd.etsi.asic-e+zip"));
+	}
+
+	@Test
+	public void containsDirectoriesOfAllLevels() {
+		fileNames.add("a/b");
+		fileNames.add("c/d/e");
+		fileNames.add("c/d/e/f");
+		assertThat(getString(), containsString("a/ "));
+		assertThat(getString(), containsString("c/ "));
+		assertThat(getString(), containsString("c/d/e/ "));
+	}
+
+	private String getString() {
 		AdocManifest adocManifest = new AdocManifest(fileNames);
 		String manifestXml = adocManifest.getAsString();
 		String manifestString = Manifests.getManifestString(manifestXml);
-		assertThat(manifestString, containsString("/ application/vnd.etsi.asic-e+zip"));
+		return manifestString;
 	}
 }

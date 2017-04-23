@@ -39,7 +39,7 @@ public class AdocManifest implements AdocContent {
 	private List<FileEntry> getEntriesForDirectories() {
 		List<FileEntry> entries = new ArrayList<FileEntry>();
 		for (String directory : getDirectories())
-			entries.add(createEntry(directory + "/", ""));
+			entries.add(createEntry(directory, ""));
 		return entries;
 	}
 
@@ -47,10 +47,18 @@ public class AdocManifest implements AdocContent {
 		SortedSet<String> directories = new TreeSet<String>();
 		for (String fileName : fileNames)
 			if (fileName.contains("/"))
-				directories.add(fileName.substring(0, fileName.lastIndexOf("/")));
-		// TODO 2017-04-19 deeper paths
+				directories.addAll(getParentsOfAllLevels(fileName));
 		// TODO 2017-04-23 sort paths
 		return directories;
+	}
+
+	private List<String> getParentsOfAllLevels(String fileName) {
+		List<String> parents = new ArrayList<String>();
+		String[] parts = fileName.split("/");
+		String parent = "";
+		for (int i = 0; i < parts.length - 1; ++i)
+			parents.add(parent += parts[i] + "/");
+		return parents;
 	}
 
 	private void add(String path, String contentType) {
