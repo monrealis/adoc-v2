@@ -3,16 +3,9 @@ package eu.vytenis.adocv2;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 
-import java.io.StringReader;
-import java.util.List;
-
-import javax.xml.bind.JAXB;
-
 import org.junit.Test;
 
 import eu.vytenis.adocv2.manifest.Manifests;
-import oasis.names.tc.opendocument.xmlns.manifest._1.FileEntry;
-import oasis.names.tc.opendocument.xmlns.manifest._1.Manifest;
 
 public class AdocPackageManifestTest {
 	private AdocPackage adoc = new AdocPackage("file.pdf", new byte[] {});
@@ -31,13 +24,7 @@ public class AdocPackageManifestTest {
 	}
 
 	private String getManifestAsString() {
-		List<FileEntry> entries = getManifest().getFileEntry();
-		return Manifests.getManifestAsString(entries);
-	}
-
-	private Manifest getManifest() {
 		String xml = adoc.getFileAsText("META-INF/manifest.xml");
-		Manifest manifest = JAXB.unmarshal(new StringReader(xml), Manifest.class);
-		return manifest;
+		return Manifests.getManifestString(xml);
 	}
 }
